@@ -64,12 +64,14 @@ class FoodComputing:
             root = ET.Element("recipes")
             tree = ET.ElementTree(root)
 
-        recipe = ET.SubElement(root, "recipe")
-        recipe_title = ET.SubElement(recipe, "recipeTitle")
-        recipe_title.text = title_text
+        # Create a dictionary for the elements
+        elements = {"recipeTitle": title_text, "prepTime": prepTime}
 
-        preperation_time = ET.SubElement(recipe, "prepTime")
-        preperation_time.text = prepTime
+        # Add elements to the XML
+        recipe = ET.SubElement(root, "recipe")
+        for element, text in elements.items():
+            sub_element = ET.SubElement(recipe, element)
+            sub_element.text = text
 
         tree.write(xml_file, encoding="utf-8", xml_declaration=True)
 
